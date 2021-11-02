@@ -1,9 +1,31 @@
+// Variables
+
 const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
 const canvasW = canvas.width;
 const canvasH = canvas.height;
-let gameSpeed = 0;
+
+// Configuration
+let gameSpeed = 5; // Background movement
 let frames = 0;
+let requestID;
+
+// Game
+let enemies = [];
+let sweets = []; // dulces 
+let knifes = [];
+let destroyed = 0; // Enemies Destroyed
+let record = 0;
+let count = 0;
+let gravity = 0.9;
+let userPull = 0.2;
+
+// Character
+let health = 100;
+let playerState = [] // Sprites 
+let left = false;
+let right = false;
+let fire;
 
 // Background
 const bg1 = new Image();

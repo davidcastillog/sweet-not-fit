@@ -8,3 +8,14 @@ canvas {
     left: 0;
     border: 1px solid black;
 }
+
+body button {
+    font-size: 15px;
+    background-color: rgba(219, 0, 0, 0.829);
+    color: #fff;
+    padding: 10px 20px;
+    border: 0;
+    box-shadow: 0;
+    border-radius: 5px;
+    margin-bottom: 20px;
+  }
