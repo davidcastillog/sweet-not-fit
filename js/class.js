@@ -10,6 +10,8 @@ class Background {
         this.image = image;
         this.speedChange = speedChange;
         this.speed = gameSpeed * this.speedChange;
+        this.imgGameOver = new Image();
+        this.imgGameOver.src = 'img/gameover.png'
     }
 
     draw(item){
@@ -19,6 +21,10 @@ class Background {
 
         ctx.drawImage(this.image,this.x,this.y, this.width, this.height);
         ctx.drawImage(this.image,this.x + this.width,this.y, this.width, this.height);
+    }
+
+    gameOver(){
+        ctx.drawImage(this.imgGameOver,400,300,1000,665)
     }
 }
 
@@ -62,31 +68,37 @@ class Enemy {
         this.y = y;
         this.width = 50;
         this.height = 50;
-        this.spriteWitdh = 300;
-        this.spriteHeight = 300;
-        this.frameX = 0;
         this.image = new Image()
-        this.image.src = '../img/enemies/sprite-enemies.png'
-        
-        /* Not working
-        if(tipo === 'apple'){
-            '../img/enemies/apple.png';
-        } else if (tipo === 'eggplant') {
-            '../img/enemies/eggplant.png';
-        } else if (tipo === 'cherry'){
-            '../img/enemies/cherry.png';
-        } else if (tipo === 'lettuce'){
-            '../img/enemies/onion.png';
-        } else if (tipo === 'onion'){
-            '../img/enemies/orange.png';
-        } else {
-            '../img/enemies/tomato.png';
-        }
-        */
+        this.image.src = this.chooseEnemy(this.tipo)
     }
 
     draw(){
-        this.x -= 2;
-        ctx.drawImage(this.image,this.y)
+        this.x -= 4;
+        ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
+    }
+
+    chooseEnemy(tipo){
+       console.log(tipo)
+        switch (tipo) {
+            case 'apple':
+                return '../img/enemies/apple.png'
+            
+            case 'cherry':
+                return '../img/enemies/cherry.png'
+
+            case 'lettuce':
+                return '../img/enemies/lettuce.png'
+            
+            case 'onion':
+                return '../img/enemies/onion.png'
+            
+            case 'orange':
+                return '../img/enemies/orange.png'
+                        
+            case 'eggplant':
+                return '../img/enemies/eggplant.png'
+
+            default: return '../img/enemies/tomato.png'
+        }
     }
 }

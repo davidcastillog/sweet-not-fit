@@ -6,18 +6,40 @@ const canvasW = canvas.width;
 const canvasH = canvas.height;
 
 // Configuration
-let gameSpeed = 5; // Background movement
+let gameSpeed = 5; // Background speed
 let frames = 0;
 let requestID; // *
+let gravity = 0.9; // *
 
 // Game
-let enemies = []; // *
+let enemies = [];
+let enemyType = ['apple', 'eggplant', 'cherry', 'lettuce', 'onion', 'tomato', 'orange']
 let sweets = []; // dulces *
-let knifes = []; // *
-let destroyed = []; // Enemies Destroyed *
-let count = 0; // Sweets eaten *
-let gravity = 3; // *
-let friction = 0.9; // *
+let sweetTye = ['cake', 'chocolateCake', 'donutSprinkles', 'iceCream', 'ironHack', 'lollipop']
+let enemiesDestroyed = []; // Enemies Destroyed *
+let score = 0; // Sweets eaten *
+
+// Audio
+// Main theme
+const mainAudio = new Audio()
+mainAudio.src = 'audio/maintheme.mp3'
+mainAudio.loop = true
+
+// Throw Knife
+const fireAudio = new Audio()
+fireAudio.src = 'audio/throw.wav'
+
+// Collision with enemy
+const enemyCollisionAudio = new Audio()
+enemyCollisionAudio.src = 'audio/noo.wav'
+
+// Game over
+const gameOverAudio = new Audio()
+gameOverAudio.src = 'audio/gameover.wav'
+
+// Sweet eaten
+const yummyAudio = new Audio()
+yummyAudio.src = 'audio/yummy.mp3'
 
 // Character
 let health = 100; // *
@@ -70,7 +92,7 @@ const stand = {
     ]
   }
   
-  console.log(fire.loc[0].y) // 750
+  // console.log(fire.loc[0].y) // 750
   
   // Array of all character states animations
   const spriteAnimations = [stand,run,jump,fire];
