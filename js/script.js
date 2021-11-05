@@ -124,7 +124,7 @@ function characterAnimate(){
 function generateEnemies(){
   if(frames % 250 === 0 || frames % 550 === 0){
       
-    let enemyY = Math.floor(Math.random() * (450 - 300)) + 300
+    let enemyY = Math.floor(Math.random() * (450 - 350)) + 350
     let randomEnemy = Math.floor(Math.random() * enemyType.length);
 
     const enemy = new Enemy(enemyType[randomEnemy],enemyY)
@@ -143,9 +143,9 @@ function drawEnemies(){
 }
 
 function generateSweets(){
-  if(frames % 150 === 0 || frames % 550 === 0){
+  if(frames % 250 === 0 || frames % 800 === 0){
       
-    let candyY = Math.floor(Math.random() * (450 - 250)) + 250
+    let candyY = Math.floor(Math.random() * (250 - 150)) + 150
     let randomSweet = Math.floor(Math.random() * sweetTye.length);
 
     const sweet = new Sweet(sweetTye[randomSweet],candyY)
@@ -163,15 +163,27 @@ function drawSweets(){
   })
 }
 
-function collision(item1,item2){
-  return(item1.x < item2.x + item2.width &&
-    item1.x + item1.width > item2.x &&
-    item1.y < item2.y + item2.height &&
-    item1.height + item1.y > item2.y)
+function collision(item1){
+  return(characterX < item1.x + item1.width &&
+    characterX + spriteWidth > item1.x &&
+    characterY < item1.y + item1.height &&
+    spriteHeight + characterY > item1.y)
 }
 
+function enemyCollision(){
+  enemies.forEach(enemy =>{
+
+    if(collision(enemy)){
+      console.log('Hit!')
+    }
+    
+  })
+}
+
+enemyCollision()
+
 function startGame(){
-  mainAudio.play()
+  //mainAudio.play()
   requestId = requestAnimationFrame(update)
 }
 

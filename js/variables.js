@@ -46,16 +46,15 @@ let health = 100; // *
 // Character Initial position
 let characterX = 100;
 let characterY = 267;
+// Size of each sprite box
+const spriteWidth = 175;
+const spriteHeight = 250;
 
 let left = false;
 let right = false;
 
 const characterImage = new Image();
 characterImage.src = '../img/sprite-character.png';
-
-// Size of each sprite box
-const spriteWidth = 175;
-const spriteHeight = 250;
 
 // Character State
 let playerState = 'stand'

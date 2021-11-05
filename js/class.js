@@ -93,7 +93,8 @@ class Sweet {
     }
 
     draw(){
-        this.x -= 2;
+        this.x -= 3;
+        this.y += 0.5;
         ctx.drawImage(this.image,this.x,this.y,this.width,this.height)
     }
 
