@@ -165,22 +165,44 @@ function drawSweets(){
 
 function collision(item1){
   return(characterX < item1.x + item1.width &&
-    characterX + spriteWidth > item1.x &&
+    characterX + 100 > item1.x &&
     characterY < item1.y + item1.height &&
-    spriteHeight + characterY > item1.y)
+    200 + characterY > item1.y)
 }
 
+
 function enemyCollision(){
-  enemies.forEach(enemy =>{
+  enemies.forEach((enemy,index_enemy)=>{
 
     if(collision(enemy)){
-      console.log('Hit!')
+      enemies.splice(index_enemy,1)
+      health -= 25
+      //enemyCollisionAudio.play()
     }
-    
   })
 }
 
-enemyCollision()
+function sweetEaten(){
+  sweets.forEach((sweet,index_sweet) =>{
+
+    if(collision(sweet)){
+      sweets.splice(index_sweet,1)
+      score++
+      yummyAudio.play()
+    }
+  })
+}
+
+function drawHUD(){
+  ctx.font= '18px sans-serif'
+  ctx.fillStyle = 'black'
+  ctx.fillText(`Health: ${health}%`, 32,25)
+  ctx.fillText(`Score: ${score}`, 152,25)
+  ctx.font= '18px sans-serif'
+  ctx.fillStyle = 'white'
+  ctx.fillText(`Health: ${health}%`, 30,24)
+  ctx.fillText(`Score: ${score}`, 150,24)
+}
 
 function startGame(){
   //mainAudio.play()
@@ -190,8 +212,14 @@ function startGame(){
 function gameOver(){
   mainAudio.pause()
   gameOverAudio.play()
-  Background.gameOver()
+  ctx.drawImage(this.imgGameOver,400,300,1000,665)
   requestId = undefined
+}
+
+function killed(){
+  if(health <= 0){
+    gameOver()
+  }
 }
 
 function update(){
@@ -201,13 +229,18 @@ function update(){
         e.draw();
     })
     move();
+    drawHUD();
     limitMovement();
+    enemyCollision();
     characterAnimate();
     generateEnemies();
     drawEnemies();
-    generateSweets()
-    drawSweets()
-    startGame()
+    sweetEaten();
+    generateSweets();
+    drawSweets();
+    startGame();
+    killed();
+
 }
 
 update(); // to use on window.onload

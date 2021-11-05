@@ -11,7 +11,7 @@ class Background {
         this.speedChange = speedChange;
         this.speed = gameSpeed * this.speedChange;
         this.imgGameOver = new Image();
-        this.imgGameOver.src = 'img/gameover.png'
+        this.imgGameOver.src = '../img/gameover.png'
     }
 
     draw(item){
