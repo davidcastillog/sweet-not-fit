@@ -26,7 +26,7 @@ function move(){
     moveBackground(true)
   }
 }
-  
+
 // Limit Character Movement
 function limitMovement(){
   if(characterX < 100){
@@ -48,19 +48,28 @@ function limitMovement(){
   
 // Keyboard
 // RUN (A & D)
-document.onkeydown = function(e){
-  if(e.key === 'a') left = true;
-  if(e.key ==='d') right = true;
-  playerState = 'run'
-}
+addEventListener("keydown",(e)=>{
+  if(e.key === 'a') {
+    left = true;
+    playerState = 'run';
+  }
+  if(e.key ==='d') {
+    right = true;
+    playerState = 'run'
+  }
+})
   
 // When the key is released is stopped
-document.onkeyup = function(e){
-  if(e.key === 'a') left = false;
-  if(e.key ==='d') right = false;
-  playerState = 'stand'
-
-}
+addEventListener("keyup",(e)=>{
+  if(e.key === 'a') {
+    left = false;
+    playerState = 'stand'
+  } 
+  if(e.key ==='d'){
+    right = false;
+    playerState = 'stand'
+  }
+})
 
 // Jump (Space Bar)
 addEventListener("keydown",(e)=>{
@@ -87,7 +96,7 @@ addEventListener("keydown",(e)=>{
 
 addEventListener("keyup",(e)=>{
   if(e.keyCode === 13){
-    playerState = 'stand'
+    playerState = 'run'
   }
 })
 
@@ -112,15 +121,13 @@ function characterAnimate(){
     spriteWidth, spriteHeight);
 }
 
-// -
-
 function generateEnemies(){
-  if(frames % 100 == 0 || frames % 250 === 0 || frames % 450 === 0){
+  if(frames % 250 === 0 || frames % 550 === 0){
       
-    let enemyY = Math.floor(Math.random() * (320 - 150)) + 150
-    let randomType = Math.floor(Math.random() * enemyType.length);
+    let enemyY = Math.floor(Math.random() * (450 - 300)) + 300
+    let randomEnemy = Math.floor(Math.random() * enemyType.length);
 
-    const enemy = new Enemy(enemyType[randomType],enemyY)
+    const enemy = new Enemy(enemyType[randomEnemy],enemyY)
     enemies.push(enemy)
   }
 }
@@ -135,10 +142,36 @@ function drawEnemies(){
   })
 }
 
-// -
+function generateSweets(){
+  if(frames % 150 === 0 || frames % 550 === 0){
+      
+    let candyY = Math.floor(Math.random() * (450 - 250)) + 250
+    let randomSweet = Math.floor(Math.random() * sweetTye.length);
+
+    const sweet = new Sweet(sweetTye[randomSweet],candyY)
+    sweets.push(sweet)
+  }
+}
+
+function drawSweets(){
+  sweets.forEach((sweet,index_sweet)=>{
+    sweet.draw()
+
+    if(sweet.x + sweet.width < 0){
+      sweets.splice(index_sweet,1)
+    } 
+  })
+}
+
+function collision(item1,item2){
+  return(item1.x < item2.x + item2.width &&
+    item1.x + item1.width > item2.x &&
+    item1.y < item2.y + item2.height &&
+    item1.height + item1.y > item2.y)
+}
 
 function startGame(){
- // mainAudio.play()
+  mainAudio.play()
   requestId = requestAnimationFrame(update)
 }
 
@@ -155,12 +188,13 @@ function update(){
     bgImages.forEach(e =>{
         e.draw();
     })
-    character.draw();
     move();
     limitMovement();
     characterAnimate();
     generateEnemies();
     drawEnemies();
+    generateSweets()
+    drawSweets()
     startGame()
 }
 

@@ -13,9 +13,9 @@ let gravity = 0.9; // *
 
 // Game
 let enemies = [];
-let enemyType = ['apple', 'eggplant', 'cherry', 'lettuce', 'onion', 'tomato', 'orange']
-let sweets = []; // dulces *
-let sweetTye = ['cake', 'chocolateCake', 'donutSprinkles', 'iceCream', 'ironHack', 'lollipop']
+let enemyType = ['apple', 'cherry', 'lettuce', 'onion', 'orange', 'eggplant', 'tomato']
+let sweets = [];
+let sweetTye = ['cake', 'chocolate', 'donutSprinkles', 'chocolateDonut', 'ironHack', 'lollipop']
 let enemiesDestroyed = []; // Enemies Destroyed *
 let score = 0; // Sweets eaten *
 
