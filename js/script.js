@@ -6,16 +6,6 @@ window.onload = () => {
   };
 }
 */
-
-// Background moves with character
-function moveBackground(x){
-  if(x){
-    bgImages.forEach(e =>{
-      e.x -= e.speed;
-  })
-  }
-}
-
 // Character Movement
 function move(){
   if (left){
@@ -24,6 +14,15 @@ function move(){
   if (right){
     characterX += 4
     moveBackground(true)
+  }
+}
+
+// Background moves with character
+function moveBackground(x){
+  if(x){
+    bgImages.forEach(e =>{
+      e.x -= e.speed;
+  })
   }
 }
 
@@ -47,12 +46,13 @@ function limitMovement(){
 }
   
 // Keyboard
-// RUN (A & D)
+// Run (A & D)
 addEventListener("keydown",(e)=>{
   if(e.key === 'a') {
     left = true;
     playerState = 'run';
   }
+  
   if(e.key ==='d') {
     right = true;
     playerState = 'run'
@@ -90,7 +90,8 @@ addEventListener("keyup",(e)=>{
 addEventListener("keydown",(e)=>{
   if(e.keyCode === 13){
     playerState = 'fire'
-    fireAudio.play()
+    fireAudio.play();
+    generateKnife();
   }
 })
 
@@ -163,13 +164,13 @@ function drawSweets(){
   })
 }
 
+// Collision with Character
 function collision(item1){
   return(characterX < item1.x + item1.width &&
-    characterX + 100 > item1.x &&
+    characterX + 90 > item1.x &&
     characterY < item1.y + item1.height &&
-    200 + characterY > item1.y)
+    180 + characterY > item1.y)
 }
-
 
 function enemyCollision(){
   enemies.forEach((enemy,index_enemy)=>{
@@ -177,8 +178,10 @@ function enemyCollision(){
     if(collision(enemy)){
       enemies.splice(index_enemy,1)
       health -= 25
-      //enemyCollisionAudio.play()
+      enemyCollisionAudio.volume = 0.25
+      enemyCollisionAudio.play()
     }
+    
   })
 }
 
@@ -193,27 +196,73 @@ function sweetEaten(){
   })
 }
 
+function generateKnife(){
+  const knife = new Knife((characterX + 110), (characterY + 125));
+  knives.push(knife)
+}
+
+function throwKnife(){
+  knives.forEach((knife,index_knife) =>{
+    knife.draw();
+
+  enemies.forEach((enemy,index_enemy)=>{
+    if(knife.collision(enemy)){
+      knives.splice(index_knife,1)
+      enemies.splice(index_enemy,1)
+    }
+  })
+  })
+}
+
 function drawHUD(){
-  ctx.font= '18px sans-serif'
-  ctx.fillStyle = 'black'
-  ctx.fillText(`Health: ${health}%`, 32,25)
-  ctx.fillText(`Score: ${score}`, 152,25)
-  ctx.font= '18px sans-serif'
-  ctx.fillStyle = 'white'
-  ctx.fillText(`Health: ${health}%`, 30,24)
-  ctx.fillText(`Score: ${score}`, 150,24)
+  if(health <= 100){
+    ctx.drawImage(health100,15,15,180,55);
+  }
+
+  if(health <= 75){
+    ctx.drawImage(health75,15,15,180,55);
+  }
+
+  if(health <= 50){
+    ctx.drawImage(health50,15,15,180,55);
+  }
+
+  if(health <= 25){
+    ctx.drawImage(health25,15,15,180,55);
+  }
+
+  if(health <= 0){
+    ctx.drawImage(health0,15,15,180,55);
+  }
+
+  ctx.font= '12px Arial';
+  ctx.fillStyle = 'red';
+  ctx.fillText(`Health: ${health}%`, 105, 63);
+
+  // Score
+  ctx.font= '24px sans-serif';
+  ctx.fillStyle = 'black';
+  ctx.fillText(`Score: ${score}`, 1052,42);
+  ctx.fillStyle = 'yellow';
+  ctx.fillText(`Score: ${score}`, 1050,40);
 }
 
 function startGame(){
-  //mainAudio.play()
-  requestId = requestAnimationFrame(update)
+  // mainAudio.play();
+  requestId = requestAnimationFrame(update);
 }
 
 function gameOver(){
-  mainAudio.pause()
+  // mainAudio.pause()
   gameOverAudio.play()
-  ctx.drawImage(this.imgGameOver,400,300,1000,665)
-  requestId = undefined
+  requestId = undefined;
+  ctx.drawImage(imgGameOver,200,30,800,500);
+  ctx.font= '32px sans-serif';
+  ctx.fillStyle = 'black';
+  ctx.fillText(`Final score: ${score}`,512,507);
+  ctx.font= '32px sans-serif';
+  ctx.fillStyle = 'yellow';
+  ctx.fillText(`Final score: ${score}`,511,505);
 }
 
 function killed(){
@@ -223,11 +272,11 @@ function killed(){
 }
 
 function update(){
-    frames++
-    ctx.clearRect(0,0,canvasW,canvasH)
+    frames++;
+    ctx.clearRect(0,0,canvasW,canvasH);
     bgImages.forEach(e =>{
         e.draw();
-    })
+    });
     move();
     drawHUD();
     limitMovement();
@@ -240,7 +289,7 @@ function update(){
     drawSweets();
     startGame();
     killed();
-
+    throwKnife();
 }
 
 update(); // to use on window.onload

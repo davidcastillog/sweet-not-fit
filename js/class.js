@@ -10,8 +10,6 @@ class Background {
         this.image = image;
         this.speedChange = speedChange;
         this.speed = gameSpeed * this.speedChange;
-        this.imgGameOver = new Image();
-        this.imgGameOver.src = '../img/gameover.png'
     }
 
     draw(item){
@@ -21,10 +19,6 @@ class Background {
 
         ctx.drawImage(this.image,this.x,this.y, this.width, this.height);
         ctx.drawImage(this.image,this.x + this.width,this.y, this.width, this.height);
-    }
-
-    gameOver(){
-        ctx.drawImage(this.imgGameOver,400,300,1000,665)
     }
 }
 
@@ -120,5 +114,31 @@ class Sweet {
                         
             default: return '../img/sweet/chocolate-donut.png'
         }
+    }
+}
+
+class Knife {
+    constructor(x,y){
+        this.x = x;
+        this.y = y;
+        this.width = 64;
+        this.height = 22;
+        this.image = new Image()
+        this.image.src = '../img/knife.png'
+    }
+
+    draw(){
+        this.x += 7;
+        ctx.drawImage(this.image,this.x,this.y,this.width,this.height);
+        console.log('dr')
+    }
+
+    collision(item){
+        return(
+           this.x < item.x + item.width &&
+            this.x + this.width > item.x &&
+            this.y < item.y + item.height &&
+            this.y + this.height > item.y
+        )
     }
 }

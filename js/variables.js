@@ -8,16 +8,17 @@ const canvasH = canvas.height;
 // Configuration
 let gameSpeed = 5; // Background speed
 let frames = 0;
-let requestID; // *
-let gravity = 0.9; // *
+let requestID;
+let gravity = 0.9; // * ¿?
 
 // Game
 let enemies = [];
 let enemyType = ['apple', 'cherry', 'lettuce', 'onion', 'orange', 'eggplant', 'tomato']
 let sweets = [];
 let sweetTye = ['cake', 'chocolate', 'donutSprinkles', 'chocolateDonut', 'ironHack', 'lollipop']
-let enemiesDestroyed = []; // Enemies Destroyed *
-let score = 0; // Sweets eaten *
+let knives = [];
+console.log(knives)
+let score = 0;
 
 // Audio
 // Main theme
@@ -31,21 +32,23 @@ fireAudio.src = 'audio/throw.wav'
 
 // Collision with enemy
 const enemyCollisionAudio = new Audio()
-enemyCollisionAudio.src = 'audio/noo.wav'
+enemyCollisionAudio.src = 'audio/ohno.mp3'
 
 // Game over
 const gameOverAudio = new Audio()
-gameOverAudio.src = 'audio/gameover.wav'
+gameOverAudio.src = 'audio/gameover.mp3'
 
 // Sweet eaten
 const yummyAudio = new Audio()
 yummyAudio.src = 'audio/yummy.mp3'
 
 // Character
-let health = 100; // *
+let health = 100;
+
 // Character Initial position
 let characterX = 100;
 let characterY = 267;
+
 // Size of each sprite box
 const spriteWidth = 175;
 const spriteHeight = 250;
@@ -67,37 +70,37 @@ const stand = {
     loc: [
       {x:0, y:0}
     ]
-  };
+};
   
-  const run = {
+const run = {
     loc: [
       {x:0, y:250},
       {x:175, y:250},
       {x:350, y:250},
       {x:525, y:250}
     ]
-  }
+}
   
-  const jump = {
+const jump = {
     loc: [
       {x:0, y:500},
       {x:175, y:500}
     ]
-  }
+}
   
-  const fire = {
+const fire = {
     loc: [
       {x:0, y:750}
     ]
-  }
+}
   
-  // console.log(fire.loc[0].y) // 750
+// console.log(fire.loc[0].y) // 750
   
-  // Array of all character states animations
-  const spriteAnimations = [stand,run,jump,fire];
+// Array of all character states animations
+const spriteAnimations = [stand,run,jump,fire];
   
-  // Character States with frames (non squared sprite images)
-  const animationStates = [
+// Character States with frames (non squared sprite images)
+const animationStates = [
     {
       name: 'stand',
       frames: 1,
@@ -114,7 +117,7 @@ const stand = {
       name: 'fire',
       frames: 1
     }
-  ];
+];
 
 // Background Images (Layers)
 const bg1 = new Image();
@@ -129,3 +132,19 @@ const bg5 = new Image();
 bg5.src = 'img/layer5.png';
 const bg6 = new Image();
 bg6.src = 'img/layer6.png';
+
+// Health HUD
+const health100 = new Image();
+health100.src = '../img/health/health100.png';
+const health75 = new Image();
+health75.src = '../img/health/health75.png';
+const health50 = new Image();
+health50.src = '../img/health/health50.png';
+const health25 = new Image();
+health25.src = '../img/health/health25.png';
+const health0 = new Image();
+health0.src = '../img/health/health0.png';
+
+// GameOver Image
+const imgGameOver = new Image();
+imgGameOver.src = '../img/gameover.png'
