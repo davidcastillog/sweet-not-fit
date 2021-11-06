@@ -38,6 +38,7 @@ class Enemy {
         this.y = y;
         this.width = 50;
         this.height = 50;
+        this.life = 3;
         this.image = new Image()
         this.image.src = this.enemyType(this.tipo)
     }
@@ -128,9 +129,8 @@ class Knife {
     }
 
     draw(){
-        this.x += 7;
+        this.x += 4;
         ctx.drawImage(this.image,this.x,this.y,this.width,this.height);
-        console.log('dr')
     }
 
     collision(item){

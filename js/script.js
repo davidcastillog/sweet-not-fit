@@ -1,18 +1,73 @@
 // Functions 
-/*
+
 window.onload = () => {
   document.getElementById('start-button').onclick = () => {
-    
+    startGame();
   };
-}
-*/
+
+  document.getElementById('reset-button').onclick = () => {
+    gameOver();
+    resetGame();
+  };
+
+// Keyboard
+// Keydown 
+addEventListener("keydown",(e)=>{
+  // Run (A & D)
+  if(e.key === 'a') {
+    left = true;
+    playerState = 'run';
+  }
+  if(e.key ==='d') {
+    right = true;
+    playerState = 'run'
+  }
+
+  // Jump (Space Bar)
+  if(e.keyCode === 32){
+    characterY -= 100;
+    playerState = 'jump'
+  }
+
+  // Fire (Enter)
+  if(e.keyCode === 13){
+    playerState = 'fire'
+    fireAudio.play();
+    generateKnife();
+  }
+})
+  
+// Keyup
+addEventListener("keyup",(e)=>{
+    // Run (A & D)
+  if(e.key === 'a') {
+    left = false;
+    playerState = 'stand'
+  } 
+  if(e.key ==='d'){
+    right = false;
+    playerState = 'stand'
+  }
+
+  // Jump (Space Bar)
+  if(e.keyCode === 32){
+    characterY += 100;
+    playerState = 'run'
+  }
+
+  // Fire (Enter)
+  if(e.keyCode === 13){
+    playerState = 'run'
+  }
+})
+
 // Character Movement
 function move(){
   if (left){
-    characterX -= 4
+    characterX -= characterSpeed
   }
   if (right){
-    characterX += 4
+    characterX += characterSpeed
     moveBackground(true)
   }
 }
@@ -44,62 +99,6 @@ function limitMovement(){
     characterY = 267
   }
 }
-  
-// Keyboard
-// Run (A & D)
-addEventListener("keydown",(e)=>{
-  if(e.key === 'a') {
-    left = true;
-    playerState = 'run';
-  }
-  
-  if(e.key ==='d') {
-    right = true;
-    playerState = 'run'
-  }
-})
-  
-// When the key is released is stopped
-addEventListener("keyup",(e)=>{
-  if(e.key === 'a') {
-    left = false;
-    playerState = 'stand'
-  } 
-  if(e.key ==='d'){
-    right = false;
-    playerState = 'stand'
-  }
-})
-
-// Jump (Space Bar)
-addEventListener("keydown",(e)=>{
-  if(e.keyCode === 32){
-    characterY -= 100;
-    playerState = 'jump'
-  }
-})
-
-addEventListener("keyup",(e)=>{
-  if(e.keyCode === 32){
-    characterY += 100;
-    playerState = 'run'
-  }
-})
-
-// Fire (Enter)
-addEventListener("keydown",(e)=>{
-  if(e.keyCode === 13){
-    playerState = 'fire'
-    fireAudio.play();
-    generateKnife();
-  }
-})
-
-addEventListener("keyup",(e)=>{
-  if(e.keyCode === 13){
-    playerState = 'run'
-  }
-})
 
 // Character Sprite States
 animationStates.forEach((states, index) =>{
@@ -122,6 +121,7 @@ function characterAnimate(){
     spriteWidth, spriteHeight);
 }
 
+// Enemies
 function generateEnemies(){
   if(frames % 250 === 0 || frames % 550 === 0){
       
@@ -143,6 +143,7 @@ function drawEnemies(){
   })
 }
 
+// Sweets
 function generateSweets(){
   if(frames % 250 === 0 || frames % 800 === 0){
       
@@ -158,18 +159,18 @@ function drawSweets(){
   sweets.forEach((sweet,index_sweet)=>{
     sweet.draw()
 
-    if(sweet.x + sweet.width < 0){
+    if((sweet.x + sweet.width < 0) && (sweet.y + sweet.height > 800)){
       sweets.splice(index_sweet,1)
-    } 
+    }
   })
 }
 
 // Collision with Character
 function collision(item1){
   return(characterX < item1.x + item1.width &&
-    characterX + 90 > item1.x &&
+    characterX + 85 > item1.x &&
     characterY < item1.y + item1.height &&
-    180 + characterY > item1.y)
+    170 + characterY > item1.y)
 }
 
 function enemyCollision(){
@@ -177,7 +178,7 @@ function enemyCollision(){
 
     if(collision(enemy)){
       enemies.splice(index_enemy,1)
-      health -= 25
+      health -= enemydamage
       enemyCollisionAudio.volume = 0.25
       enemyCollisionAudio.play()
     }
@@ -196,6 +197,7 @@ function sweetEaten(){
   })
 }
 
+// Character Power
 function generateKnife(){
   const knife = new Knife((characterX + 110), (characterY + 125));
   knives.push(knife)
@@ -205,15 +207,24 @@ function throwKnife(){
   knives.forEach((knife,index_knife) =>{
     knife.draw();
 
-  enemies.forEach((enemy,index_enemy)=>{
-    if(knife.collision(enemy)){
-      knives.splice(index_knife,1)
-      enemies.splice(index_enemy,1)
-    }
-  })
+    enemies.forEach((enemy,index_enemy)=>{
+    
+      if(knife.collision(enemy)){
+
+        if(enemy.life > 1) {
+          enemy.life -= knifedamage;
+          knives.splice(index_knife,1)
+
+        } else {
+        knives.splice(index_knife,1)
+        enemies.splice(index_enemy,1)
+        }
+      }
+    })
   })
 }
 
+// HUD
 function drawHUD(){
   if(health <= 100){
     ctx.drawImage(health100,15,15,180,55);
@@ -245,30 +256,59 @@ function drawHUD(){
   ctx.fillText(`Score: ${score}`, 1052,42);
   ctx.fillStyle = 'yellow';
   ctx.fillText(`Score: ${score}`, 1050,40);
+  ctx.fillStyle = 'white';
+  ctx.fillText(`High Score: ${highscore}`, 851,42);
+  ctx.fillStyle = 'red';
+  ctx.fillText(`High Score: ${highscore}`, 850,40);
 }
 
+// Game Functions
 function startGame(){
-  // mainAudio.play();
+  mainAudio.play();
   requestId = requestAnimationFrame(update);
 }
 
 function gameOver(){
-  // mainAudio.pause()
+  mainAudio.pause()
   gameOverAudio.play()
-  requestId = undefined;
   ctx.drawImage(imgGameOver,200,30,800,500);
   ctx.font= '32px sans-serif';
   ctx.fillStyle = 'black';
-  ctx.fillText(`Final score: ${score}`,512,507);
+  ctx.fillText(`Final Score: ${score}`,512,507);
   ctx.font= '32px sans-serif';
   ctx.fillStyle = 'yellow';
-  ctx.fillText(`Final score: ${score}`,511,505);
+  ctx.fillText(`Final Score: ${score}`,511,505);
+  requestId = undefined;
 }
 
 function killed(){
   if(health <= 0){
-    gameOver()
+    setTimeout(() => {
+      gameOver()
+    }, 100); 
   }
+}
+
+function resetGame(){
+  if(requestId){
+    return true 
+  };
+  score = 0;
+  health = 100;
+  location.reload();
+  startGame();
+}
+
+function highScore(){
+  if(highscore !== null){
+    if (score > highscore) {
+        localStorage.setItem("highscore", score);      
+    }
+  }
+  else{
+    localStorage.setItem("highscore", score);
+  }
+  console.log(highScore)
 }
 
 function update(){
@@ -287,9 +327,11 @@ function update(){
     sweetEaten();
     generateSweets();
     drawSweets();
-    startGame();
-    killed();
     throwKnife();
+    killed()
+    highScore();
+    if(requestId){
+      requestId = requestAnimationFrame(update)
+    }
 }
-
-update(); // to use on window.onload
+}

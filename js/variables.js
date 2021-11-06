@@ -5,49 +5,30 @@ const ctx = canvas.getContext('2d');
 const canvasW = canvas.width;
 const canvasH = canvas.height;
 
-// Configuration
+// Game Configuration
 let gameSpeed = 5; // Background speed
 let frames = 0;
 let requestID;
 let gravity = 0.9; // * ¿?
 
-// Game
-let enemies = [];
-let enemyType = ['apple', 'cherry', 'lettuce', 'onion', 'orange', 'eggplant', 'tomato']
+// Sweets
 let sweets = [];
 let sweetTye = ['cake', 'chocolate', 'donutSprinkles', 'chocolateDonut', 'ironHack', 'lollipop']
-let knives = [];
-console.log(knives)
-let score = 0;
 
-// Audio
-// Main theme
-const mainAudio = new Audio()
-mainAudio.src = 'audio/maintheme.mp3'
-mainAudio.loop = true
-
-// Throw Knife
-const fireAudio = new Audio()
-fireAudio.src = 'audio/throw.wav'
-
-// Collision with enemy
-const enemyCollisionAudio = new Audio()
-enemyCollisionAudio.src = 'audio/ohno.mp3'
-
-// Game over
-const gameOverAudio = new Audio()
-gameOverAudio.src = 'audio/gameover.mp3'
-
-// Sweet eaten
-const yummyAudio = new Audio()
-yummyAudio.src = 'audio/yummy.mp3'
+// Enemies 
+let enemies = [];
+let enemyType = ['apple', 'cherry', 'lettuce', 'onion', 'orange', 'eggplant', 'tomato']
+let enemydamage = 25;
 
 // Character
 let health = 100;
-
-// Character Initial position
+let score = 0;
+let highscore = localStorage.getItem('highscore',0)
+let characterSpeed = 4;
+let knifedamage = 1;
+let knives = [];
 let characterX = 100;
-let characterY = 267;
+let characterY = 0;
 
 // Size of each sprite box
 const spriteWidth = 175;
@@ -57,7 +38,7 @@ let left = false;
 let right = false;
 
 const characterImage = new Image();
-characterImage.src = '../img/sprite-character.png';
+characterImage.src = '../img/sprite-characterFat.png';
 
 // Character State
 let playerState = 'stand'
@@ -99,7 +80,7 @@ const fire = {
 // Array of all character states animations
 const spriteAnimations = [stand,run,jump,fire];
   
-// Character States with frames (non squared sprite images)
+// Character States with frames (non squared sprites)
 const animationStates = [
     {
       name: 'stand',
@@ -118,6 +99,28 @@ const animationStates = [
       frames: 1
     }
 ];
+
+// Audio
+// Main theme
+const mainAudio = new Audio()
+mainAudio.src = 'audio/maintheme.mp3'
+mainAudio.loop = true
+
+// Throw Knife
+const fireAudio = new Audio()
+fireAudio.src = 'audio/throw.wav'
+
+// Sweet eaten
+const yummyAudio = new Audio()
+yummyAudio.src = 'audio/yummy.mp3'
+
+// Collision with enemy
+const enemyCollisionAudio = new Audio()
+enemyCollisionAudio.src = 'audio/ohno.mp3'
+
+// Game over
+const gameOverAudio = new Audio()
+gameOverAudio.src = 'audio/gameover.mp3'
 
 // Background Images (Layers)
 const bg1 = new Image();

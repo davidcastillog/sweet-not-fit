@@ -1,12 +1,11 @@
 * {
-    margin: 0;
+    margin: 5px;
     padding: 0;
 }
 
 canvas {
     top: 0;
     left: 0;
-    border: 1px solid black;
 }
 
 body button {
