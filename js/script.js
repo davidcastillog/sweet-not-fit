@@ -16,22 +16,39 @@ addEventListener("keydown",(e)=>{
   // Run (A & D)
   if(e.key === 'a') {
     left = true;
-    playerState = 'run';
+    if(health > 50){
+      playerState = 'runBack';
+    } else {
+      playerState = 'runFitBack';
+    }
   }
+
   if(e.key ==='d') {
     right = true;
-    playerState = 'run'
+    if(health > 50){
+      playerState = 'run';
+    } else {
+      playerState = 'runFit'
+    }
   }
 
   // Jump (Space Bar)
   if(e.keyCode === 32){
     characterY -= 100;
-    playerState = 'jump'
+    if(health > 50){
+      playerState = 'jump'
+    } else {
+      playerState = 'jumpFit'
+    }
   }
 
   // Fire (Enter)
   if(e.keyCode === 13){
-    playerState = 'fire'
+    if(health > 50){
+      playerState = 'fire'
+    } else {
+      playerState = 'fireFit'
+    }
     fireAudio.play();
     generateKnife();
   }
@@ -42,22 +59,39 @@ addEventListener("keyup",(e)=>{
     // Run (A & D)
   if(e.key === 'a') {
     left = false;
-    playerState = 'stand'
+    if(health > 50){
+      playerState = 'stand'
+    } else {
+      playerState = 'standFit'
+    }
   } 
+
   if(e.key ==='d'){
     right = false;
-    playerState = 'stand'
+    if(health > 50){
+      playerState = 'stand'
+    } else {
+      playerState = 'standFit'
+    }
   }
 
   // Jump (Space Bar)
   if(e.keyCode === 32){
     characterY += 100;
-    playerState = 'run'
+    if(health > 50){
+      playerState = 'run'
+    } else {
+      playerState = 'runFit'
+    }
   }
 
   // Fire (Enter)
   if(e.keyCode === 13){
-    playerState = 'run'
+    if(health > 50){
+      playerState = 'run'
+    } else {
+      playerState = 'runFit'
+    }
   }
 })
 
@@ -248,7 +282,7 @@ function drawHUD(){
 
   ctx.font= '12px Arial';
   ctx.fillStyle = 'red';
-  ctx.fillText(`Health: ${health}%`, 105, 63);
+  ctx.fillText(`Fat-O-Meter: ${health}%`, 87, 63);
 
   // Score
   ctx.font= '24px sans-serif';
@@ -308,7 +342,6 @@ function highScore(){
   else{
     localStorage.setItem("highscore", score);
   }
-  console.log(highScore)
 }
 
 function update(){
@@ -328,7 +361,7 @@ function update(){
     generateSweets();
     drawSweets();
     throwKnife();
-    killed()
+    killed();
     highScore();
     if(requestId){
       requestId = requestAnimationFrame(update)

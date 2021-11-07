@@ -38,15 +38,15 @@ let left = false;
 let right = false;
 
 const characterImage = new Image();
-characterImage.src = '../img/sprite-characterFat.png';
+characterImage.src = '../img/sprite-character.png';
 
 // Character State
 let playerState = 'stand'
 
 // How many frames to wait for the next movement
-const staggerFrames = 8; 
+const staggerFrames = 8;
 
-// States coordinates on sprite
+// Coordinates for each sprite state on PNG
 const stand = {
     loc: [
       {x:0, y:0}
@@ -74,11 +74,57 @@ const fire = {
       {x:0, y:750}
     ]
 }
+
+const standFit = {
+  loc: [
+    {x:0, y:1000}
+  ]
+};
+
+const runFit = {
+  loc: [
+    {x:0, y:1250},
+    {x:175, y:1250},
+    {x:350, y:1250},
+    {x:525, y:1250}
+  ]
+}
+
+const jumpFit = {
+  loc: [
+    {x:0, y:1500},
+    {x:175, y:1500}
+  ]
+}
+
+const fireFit = {
+  loc: [
+    {x:0, y:1750}
+  ]
+}
+
+const runBack = {
+  loc: [
+    {x:0, y:2000},
+    {x:175, y:2000},
+    {x:350, y:2000},
+    {x:525, y:2000}
+  ]
+}
+
+const runFitBack = {
+  loc: [
+    {x:0, y:2250},
+    {x:175, y:2250},
+    {x:350, y:2250},
+    {x:525, y:2250}
+  ]
+}
   
 // console.log(fire.loc[0].y) // 750
   
 // Array of all character states animations
-const spriteAnimations = [stand,run,jump,fire];
+const spriteAnimations = [stand,run,jump,fire,standFit,runFit,jumpFit,fireFit,runBack,runFitBack];
   
 // Character States with frames (non squared sprites)
 const animationStates = [
@@ -97,7 +143,31 @@ const animationStates = [
     {
       name: 'fire',
       frames: 1
-    }
+    },
+    {
+      name: 'standFit',
+      frames: 1,
+    },
+    {
+      name: 'runFit',
+      frames: 4
+    },
+    {
+      name: 'jumpFit',
+      frames: 2
+    },
+    {
+      name: 'fireFit',
+      frames: 1
+    },
+    {
+      name: 'runBack',
+      frames: 4
+    },
+    {
+      name: 'runFitBack',
+      frames: 4
+    },
 ];
 
 // Audio
@@ -116,7 +186,7 @@ yummyAudio.src = 'audio/yummy.mp3'
 
 // Collision with enemy
 const enemyCollisionAudio = new Audio()
-enemyCollisionAudio.src = 'audio/ohno.mp3'
+enemyCollisionAudio.src = 'audio/ohoh.mp3'
 
 // Game over
 const gameOverAudio = new Audio()
