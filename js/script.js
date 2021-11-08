@@ -77,12 +77,14 @@ addEventListener("keyup",(e)=>{
 
   // Jump (Space Bar)
   if(e.keyCode === 32){
-    characterY += 100;
     if(health > 50){
       playerState = 'run'
     } else {
       playerState = 'runFit'
     }
+    setTimeout(() => {
+      characterY += 100;
+    }, 300);
   }
 
   // Fire (Enter)
@@ -157,7 +159,7 @@ function characterAnimate(){
 
 // Enemies
 function generateEnemies(){
-  if(frames % 250 === 0 || frames % 550 === 0){
+  if(frames % 200 === 0 || frames % 400 === 0){
       
     let enemyY = Math.floor(Math.random() * (450 - 350)) + 350
     let randomEnemy = Math.floor(Math.random() * enemyType.length);
@@ -179,7 +181,7 @@ function drawEnemies(){
 
 // Sweets
 function generateSweets(){
-  if(frames % 250 === 0 || frames % 800 === 0){
+  if(frames % 300 === 0 || frames % 800 === 0){
       
     let candyY = Math.floor(Math.random() * (250 - 150)) + 150
     let randomSweet = Math.floor(Math.random() * sweetTye.length);
@@ -201,10 +203,10 @@ function drawSweets(){
 
 // Collision with Character
 function collision(item1){
-  return(characterX < item1.x + item1.width &&
+  return(characterX + 30 < item1.x + item1.width &&
     characterX + 85 > item1.x &&
     characterY < item1.y + item1.height &&
-    170 + characterY > item1.y)
+    200 + characterY > item1.y)
 }
 
 function enemyCollision(){
@@ -212,7 +214,7 @@ function enemyCollision(){
 
     if(collision(enemy)){
       enemies.splice(index_enemy,1)
-      health -= enemydamage
+      health -= enemy.damage
       enemyCollisionAudio.volume = 0.25
       enemyCollisionAudio.play()
     }
@@ -225,6 +227,7 @@ function sweetEaten(){
 
     if(collision(sweet)){
       sweets.splice(index_sweet,1)
+      health += sweet.calories
       score++
       yummyAudio.play()
     }
@@ -234,7 +237,7 @@ function sweetEaten(){
 // Character Power
 function generateKnife(){
   const knife = new Knife((characterX + 110), (characterY + 125));
-  knives.push(knife)
+  knives.push(knife);
 }
 
 function throwKnife(){
@@ -246,7 +249,7 @@ function throwKnife(){
       if(knife.collision(enemy)){
 
         if(enemy.life > 1) {
-          enemy.life -= knifedamage;
+          enemy.life -= knife.damage;
           knives.splice(index_knife,1)
 
         } else {
@@ -260,40 +263,66 @@ function throwKnife(){
 
 // HUD
 function drawHUD(){
-  if(health <= 100){
-    ctx.drawImage(health100,15,15,180,55);
+  if(health > 100){
+    health = 100;
+  }
+  
+  switch (health) {
+    case 100:
+      ctx.drawImage(health100,15,15,180,55);
+      break;
+    case 90:
+      ctx.drawImage(health90,15,15,180,55);
+    break;
+    case 80:
+      ctx.drawImage(health80,15,15,180,55);
+    break;
+    case 70:
+      ctx.drawImage(health70,15,15,180,55);
+    break;
+    case 60:
+      ctx.drawImage(health60,15,15,180,55);
+    break;
+    case 50:
+      ctx.drawImage(health50,15,15,180,55);
+    break;
+    case 40:
+      ctx.drawImage(health40,15,15,180,55);
+    break;
+    case 30:
+      ctx.drawImage(health30,15,15,180,55);
+    break;
+    case 20:
+      ctx.drawImage(health20,15,15,180,55);
+    break;
+    case 10:
+      ctx.drawImage(health10,15,15,180,55);
+    break;
+    case 0:
+      ctx.drawImage(health0,15,15,180,55);
+    break;
+    default: ctx.drawImage(health100,15,15,180,55);
+      break;
   }
 
-  if(health <= 75){
-    ctx.drawImage(health75,15,15,180,55);
-  }
-
-  if(health <= 50){
-    ctx.drawImage(health50,15,15,180,55);
-  }
-
-  if(health <= 25){
-    ctx.drawImage(health25,15,15,180,55);
-  }
-
-  if(health <= 0){
-    ctx.drawImage(health0,15,15,180,55);
-  }
-
-  ctx.font= '12px Arial';
+  ctx.font= '11px Arial';
   ctx.fillStyle = 'red';
-  ctx.fillText(`Fat-O-Meter: ${health}%`, 87, 63);
+  ctx.fillText(`GORDIMETRO: ${health}%`, 78, 62);
 
   // Score
-  ctx.font= '24px sans-serif';
+  ctx.globalAlpha = 0.15;
+  ctx.fillStyle = 'white';
+  ctx.fillRect(855,15,305,35);
+  ctx.globalAlpha = 1;
+  ctx.font= '23px sans-serif';
   ctx.fillStyle = 'black';
   ctx.fillText(`Score: ${score}`, 1052,42);
   ctx.fillStyle = 'yellow';
   ctx.fillText(`Score: ${score}`, 1050,40);
   ctx.fillStyle = 'white';
-  ctx.fillText(`High Score: ${highscore}`, 851,42);
+  ctx.fillText(`High Score: ${highscore}`, 871,42);
   ctx.fillStyle = 'red';
-  ctx.fillText(`High Score: ${highscore}`, 850,40);
+  ctx.fillText(`High Score: ${highscore}`, 870,40);
 }
 
 // Game Functions

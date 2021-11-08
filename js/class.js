@@ -39,8 +39,9 @@ class Enemy {
         this.width = 50;
         this.height = 50;
         this.life = 3;
-        this.image = new Image()
-        this.image.src = this.enemyType(this.tipo)
+        this.damage = 30;
+        this.image = new Image();
+        this.image.src = this.enemyType(this.tipo);
     }
 
     draw(){
@@ -51,27 +52,27 @@ class Enemy {
     enemyType(tipo){
         switch (tipo) {
             case 'apple':
-                return '../img/enemies/apple.png'
+                return 'img/enemies/apple.png'
             
             case 'cherry':
-                return '../img/enemies/cherry.png'
+                return 'img/enemies/cherry.png'
 
             case 'lettuce':
-                return '../img/enemies/lettuce.png'
+                return 'img/enemies/lettuce.png'
             
             case 'onion':
-                return '../img/enemies/onion.png'
+                return 'img/enemies/onion.png'
             
             case 'orange':
-                return '../img/enemies/orange.png'
+                return 'img/enemies/orange.png'
                         
             case 'eggplant':
-                return '../img/enemies/eggplant.png'
+                return 'img/enemies/eggplant.png'
             
             case 'tomato':
-                return '../img/enemies/tomato.png'
+                return 'img/enemies/tomato.png'
 
-            default: return '../img/enemies/tomato.png'
+            default: return 'img/enemies/tomato.png'
         }
     }
 }
@@ -83,6 +84,7 @@ class Sweet {
         this.y = y;
         this.width = 50;
         this.height = 50;
+        this.calories = 10;
         this.image = new Image()
         this.image.src = this.sweetType(this.tipo)
     }
@@ -96,24 +98,24 @@ class Sweet {
     sweetType(tipo){
         switch (tipo) {
             case 'cake':
-                return '../img/sweet/cake.png'
+                return 'img/sweet/cake.png'
             
             case 'chocolate':
-                return '../img/sweet/chocolate.png'
+                return 'img/sweet/chocolate.png'
 
             case 'donutSprinkles':
-                return '../img/sweet/donut-sprinkles.png'
+                return 'img/sweet/donut-sprinkles.png'
             
             case 'chocolateDonut':
-                return '../img/sweet/chocolate-donut.png'
+                return 'img/sweet/chocolate-donut.png'
             
             case 'ironHack':
-                return '../img/sweet/ironhack-sweet.png'
+                return 'img/sweet/ironhack-sweet.png'
             
             case 'lollipop':
-                return '../img/sweet/lollipop.png'
+                return 'img/sweet/lollipop.png'
                         
-            default: return '../img/sweet/chocolate-donut.png'
+            default: return 'img/sweet/chocolate-donut.png'
         }
     }
 }
@@ -124,8 +126,9 @@ class Knife {
         this.y = y;
         this.width = 64;
         this.height = 22;
+        this.damage = 1;
         this.image = new Image()
-        this.image.src = '../img/knife.png'
+        this.image.src = 'img/knife.png'
     }
 
     draw(){

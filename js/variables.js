@@ -9,7 +9,6 @@ const canvasH = canvas.height;
 let gameSpeed = 5; // Background speed
 let frames = 0;
 let requestID;
-let gravity = 0.9; // * ¿?
 
 // Sweets
 let sweets = [];
@@ -18,14 +17,12 @@ let sweetTye = ['cake', 'chocolate', 'donutSprinkles', 'chocolateDonut', 'ironHa
 // Enemies 
 let enemies = [];
 let enemyType = ['apple', 'cherry', 'lettuce', 'onion', 'orange', 'eggplant', 'tomato']
-let enemydamage = 25;
 
 // Character
 let health = 100;
 let score = 0;
 let highscore = localStorage.getItem('highscore',0)
 let characterSpeed = 4;
-let knifedamage = 1;
 let knives = [];
 let characterX = 100;
 let characterY = 0;
@@ -34,11 +31,9 @@ let characterY = 0;
 const spriteWidth = 175;
 const spriteHeight = 250;
 
+// Keyboard A&D pressed
 let left = false;
 let right = false;
-
-const characterImage = new Image();
-characterImage.src = '../img/sprite-character.png';
 
 // Character State
 let playerState = 'stand'
@@ -170,7 +165,8 @@ const animationStates = [
     },
 ];
 
-// Audio
+// AUDIO
+
 // Main theme
 const mainAudio = new Audio()
 mainAudio.src = 'audio/maintheme.mp3'
@@ -192,6 +188,12 @@ enemyCollisionAudio.src = 'audio/ohoh.mp3'
 const gameOverAudio = new Audio()
 gameOverAudio.src = 'audio/gameover.mp3'
 
+// IMAGES
+
+// Character Sprite
+const characterImage = new Image();
+characterImage.src = 'img/sprite-character.png';
+
 // Background Images (Layers)
 const bg1 = new Image();
 bg1.src = 'img/layer1.png';
@@ -208,16 +210,28 @@ bg6.src = 'img/layer6.png';
 
 // Health HUD
 const health100 = new Image();
-health100.src = '../img/health/health100.png';
-const health75 = new Image();
-health75.src = '../img/health/health75.png';
+health100.src = 'img/health/health100.png';
+const health90 = new Image();
+health90.src = 'img/health/health90.png';
+const health80 = new Image();
+health80.src = 'img/health/health80.png';
+const health70 = new Image();
+health70.src = 'img/health/health70.png';
+const health60 = new Image();
+health60.src = 'img/health/health60.png';
 const health50 = new Image();
-health50.src = '../img/health/health50.png';
-const health25 = new Image();
-health25.src = '../img/health/health25.png';
+health50.src = 'img/health/health50.png';
+const health40 = new Image();
+health40.src = 'img/health/health40.png';
+const health30 = new Image();
+health30.src = 'img/health/health30.png';
+const health20 = new Image();
+health20.src = 'img/health/health20.png';
+const health10 = new Image();
+health10.src = 'img/health/health10.png';
 const health0 = new Image();
-health0.src = '../img/health/health0.png';
+health0.src = 'img/health/health0.png';
 
 // GameOver Image
 const imgGameOver = new Image();
-imgGameOver.src = '../img/gameover.png'
+imgGameOver.src = 'img/gameover.png'
