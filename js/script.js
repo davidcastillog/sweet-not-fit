@@ -272,6 +272,10 @@ function throwKnife(){
         enemies.splice(index_enemy,1)
         }
       }
+
+      if(knife.x + knife.width > canvasW){
+        knives.splice(index_knife,1)
+      }
     })
   })
 }
@@ -350,6 +354,7 @@ function gameOver(){
   mainAudio.pause();
   gameOverAudio.play();
   againButton();
+  
   ctx.drawImage(imgGameOver,200,30,800,500);
   ctx.font= '32px sans-serif';
   ctx.fillStyle = 'black';
@@ -358,6 +363,14 @@ function gameOver(){
   ctx.fillStyle = 'yellow';
   ctx.fillText(`Final Score: ${score}`,511,505);
   requestId = undefined;
+
+  if(score > highscore){
+    ctx.font= '25px sans-serif';
+    ctx.fillStyle = 'black';
+    ctx.fillText(`Wow! New Record! Well done!`,452,570);
+    ctx.fillStyle = 'yellow';
+    ctx.fillText(`Wow! New Record! Well done!`,450,568);
+  }
 }
 
 function killed(){
@@ -390,6 +403,8 @@ function highScore(){
   }
 }
 
+// DOM Button Functions
+
 function hideScreen(){
   document.getElementById('start-button').style.display = 'none';
   document.getElementById('how-button').style.display = 'none';
@@ -406,6 +421,8 @@ function closeXButton(){
 function againButton(){
   document.getElementById('again-button').style.display = 'block';
 }
+
+// Update
 
 function update(){
     frames++;

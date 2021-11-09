@@ -1,6 +1,17 @@
 * {
-    margin: 5px;
+    margin: 0;
     padding: 0;
+}
+
+body {
+    background-image: url("../img/background/bgweb.jpg");
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#canvas {
+    margin-top: 20px;
 }
 
 .start-button {
@@ -9,7 +20,7 @@
     position: absolute;
     width: 150px;
     height: 50px;
-    left: 470px;
+    left: 550px;
     top: 400px;
     color: #FFF;
     text-decoration: none;
@@ -30,7 +41,7 @@
     position: absolute;
     width: 160px;
     height: 50px;
-    left: 650px;
+    left: 750px;
     top: 400px;
     color: #FFF;
     text-decoration: none;
@@ -51,7 +62,7 @@
     position: absolute;
     width: 60px;
     height: 40px;
-    left: 1125px;
+    left: 1225px;
     top: 50px;
     color: #FFF;
     text-decoration: none;
@@ -72,15 +83,15 @@
     width: 150px;
     height: 50px;
     position: absolute;
-    left: 850px;
-    top: 480px;
+    left: 950px;
+    top: 490px;
     color: #FFF;
     text-decoration: none;
     text-align: center;
     background-color: rgba(219, 0, 0, 0.829);
     color: #fff;
     padding: 10px 20px;
-    border: 0;
+    border: 2px solid white;
     box-shadow: 0;
     border-radius: 5px;
     margin-bottom: 20px;
@@ -90,18 +101,12 @@
 
 #main-screen{
     position: absolute;
-    left: 16px;
-    top: 11px;
+    left: 120px;
+    top: 25px;
 }
 
 #instructions-menu {
     position: absolute;
-    left: 16px;
-    top: 11px;
-}
-
-.main-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    left: 120px;
+    top: 25px;
 }
