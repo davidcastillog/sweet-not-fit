@@ -3,12 +3,42 @@
 window.onload = () => {
   document.getElementById('start-button').onclick = () => {
     startGame();
+    hideScreen()
+    document.getElementById('instructions-menu').style.display = 'none';
+    document.getElementById('x-button').style.display = 'none';
   };
 
-  document.getElementById('reset-button').onclick = () => {
-    gameOver();
+  document.getElementById('again-button').onclick = () => {
     resetGame();
   };
+
+  document.getElementById('how-button').onclick = () => {
+    hideScreen();
+    document.getElementById('x-button').style.display = 'block';
+  };
+
+  document.getElementById('x-button').onclick = () => {
+    closeXButton();
+    document.getElementById('x-button').style.display = 'none';
+  };
+  
+  function hideScreen(){
+    document.getElementById('start-button').style.display = 'none';
+    document.getElementById('how-button').style.display = 'none';
+    document.getElementById('main-screen').style.display = 'none';
+  }
+
+  function closeXButton(){
+    document.getElementById('start-button').style.display = 'block';
+    document.getElementById('how-button').style.display = 'block';
+    document.getElementById('main-screen').style.display = 'block';
+    document.getElementById('x-button').style.display = 'hidden';
+  }
+
+  function againButton(){
+    document.getElementById('again-button').style.display = 'block';
+  }
+  
 
 // Keyboard
 // Keydown 
@@ -44,13 +74,13 @@ addEventListener("keydown",(e)=>{
 
   // Fire (Enter)
   if(e.keyCode === 13){
-    if(health > 50){
-      playerState = 'fire'
-    } else {
-      playerState = 'fireFit'
-    }
-    fireAudio.play();
-    generateKnife();
+      if(health > 50){
+        playerState = 'fire'
+      } else {
+        playerState = 'fireFit'
+      }
+      fireAudio.play();
+      generateKnife();
   }
 })
   
@@ -84,7 +114,7 @@ addEventListener("keyup",(e)=>{
     }
     setTimeout(() => {
       characterY += 100;
-    }, 300);
+    }, 350);
   }
 
   // Fire (Enter)
@@ -159,7 +189,7 @@ function characterAnimate(){
 
 // Enemies
 function generateEnemies(){
-  if(frames % 200 === 0 || frames % 400 === 0){
+  if(frames % 100 === 0 || frames % 250 === 0 || frames % 400 === 0){
       
     let enemyY = Math.floor(Math.random() * (450 - 350)) + 350
     let randomEnemy = Math.floor(Math.random() * enemyType.length);
@@ -227,7 +257,7 @@ function sweetEaten(){
 
     if(collision(sweet)){
       sweets.splice(index_sweet,1)
-      health += sweet.calories
+      health += sweet.life
       score++
       yummyAudio.play()
     }
@@ -307,7 +337,7 @@ function drawHUD(){
 
   ctx.font= '11px Arial';
   ctx.fillStyle = 'red';
-  ctx.fillText(`GORDIMETRO: ${health}%`, 78, 62);
+  ctx.fillText(`Gordimetro: ${health}%`, 78, 62);
 
   // Score
   ctx.globalAlpha = 0.15;
@@ -332,8 +362,9 @@ function startGame(){
 }
 
 function gameOver(){
-  mainAudio.pause()
-  gameOverAudio.play()
+  mainAudio.pause();
+  gameOverAudio.play();
+  againButton();
   ctx.drawImage(imgGameOver,200,30,800,500);
   ctx.font= '32px sans-serif';
   ctx.fillStyle = 'black';
@@ -346,6 +377,7 @@ function gameOver(){
 
 function killed(){
   if(health <= 0){
+    health = 0;
     setTimeout(() => {
       gameOver()
     }, 100); 

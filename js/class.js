@@ -54,8 +54,8 @@ class Enemy {
             case 'apple':
                 return 'img/enemies/apple.png'
             
-            case 'cherry':
-                return 'img/enemies/cherry.png'
+            case 'brocoli':
+                return 'img/enemies/brocoli.png'
 
             case 'lettuce':
                 return 'img/enemies/lettuce.png'
@@ -84,7 +84,7 @@ class Sweet {
         this.y = y;
         this.width = 50;
         this.height = 50;
-        this.calories = 10;
+        this.life = 10;
         this.image = new Image()
         this.image.src = this.sweetType(this.tipo)
     }

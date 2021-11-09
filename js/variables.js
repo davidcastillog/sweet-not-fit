@@ -16,7 +16,7 @@ let sweetTye = ['cake', 'chocolate', 'donutSprinkles', 'chocolateDonut', 'ironHa
 
 // Enemies 
 let enemies = [];
-let enemyType = ['apple', 'cherry', 'lettuce', 'onion', 'orange', 'eggplant', 'tomato']
+let enemyType = ['apple', 'brocoli', 'lettuce', 'onion', 'orange', 'eggplant', 'tomato']
 
 // Character
 let health = 100;
@@ -31,7 +31,7 @@ let characterY = 0;
 const spriteWidth = 175;
 const spriteHeight = 250;
 
-// Keyboard A&D pressed
+// Keyboard pressed
 let left = false;
 let right = false;
 
@@ -196,17 +196,17 @@ characterImage.src = 'img/sprite-character.png';
 
 // Background Images (Layers)
 const bg1 = new Image();
-bg1.src = 'img/layer1.png';
+bg1.src = 'img/background/layer1.png';
 const bg2 = new Image();
-bg2.src = 'img/layer2.png';
+bg2.src = 'img/background/layer2.png';
 const bg3 = new Image();
-bg3.src = 'img/layer3.png';
+bg3.src = 'img/background/layer3.png';
 const bg4 = new Image();
-bg4.src = 'img/layer4.png';
+bg4.src = 'img/background/layer4.png';
 const bg5 = new Image();
-bg5.src = 'img/layer5.png';
+bg5.src = 'img/background/layer5.png';
 const bg6 = new Image();
-bg6.src = 'img/layer6.png';
+bg6.src = 'img/background/layer6.png';
 
 // Health HUD
 const health100 = new Image();
