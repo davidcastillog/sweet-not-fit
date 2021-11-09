@@ -1,15 +1,19 @@
 // Functions 
 
 window.onload = () => {
+
+  // Buttons
   document.getElementById('start-button').onclick = () => {
     startGame();
     hideScreen()
     document.getElementById('instructions-menu').style.display = 'none';
     document.getElementById('x-button').style.display = 'none';
   };
-
+  
   document.getElementById('again-button').onclick = () => {
     resetGame();
+    document.getElementById('again-button').style.display = 'none';
+
   };
 
   document.getElementById('how-button').onclick = () => {
@@ -19,26 +23,7 @@ window.onload = () => {
 
   document.getElementById('x-button').onclick = () => {
     closeXButton();
-    document.getElementById('x-button').style.display = 'none';
   };
-  
-  function hideScreen(){
-    document.getElementById('start-button').style.display = 'none';
-    document.getElementById('how-button').style.display = 'none';
-    document.getElementById('main-screen').style.display = 'none';
-  }
-
-  function closeXButton(){
-    document.getElementById('start-button').style.display = 'block';
-    document.getElementById('how-button').style.display = 'block';
-    document.getElementById('main-screen').style.display = 'block';
-    document.getElementById('x-button').style.display = 'hidden';
-  }
-
-  function againButton(){
-    document.getElementById('again-button').style.display = 'block';
-  }
-  
 
 // Keyboard
 // Keydown 
@@ -403,6 +388,23 @@ function highScore(){
   else{
     localStorage.setItem("highscore", score);
   }
+}
+
+function hideScreen(){
+  document.getElementById('start-button').style.display = 'none';
+  document.getElementById('how-button').style.display = 'none';
+  document.getElementById('main-screen').style.display = 'none';
+}
+
+function closeXButton(){
+  document.getElementById('start-button').style.display = 'block';
+  document.getElementById('how-button').style.display = 'block';
+  document.getElementById('main-screen').style.display = 'block';
+  document.getElementById('x-button').style.display = 'none';
+}
+
+function againButton(){
+  document.getElementById('again-button').style.display = 'block';
 }
 
 function update(){

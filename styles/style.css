@@ -9,7 +9,7 @@
     position: absolute;
     width: 150px;
     height: 50px;
-    left: 450px;
+    left: 470px;
     top: 400px;
     color: #FFF;
     text-decoration: none;
@@ -30,7 +30,7 @@
     position: absolute;
     width: 160px;
     height: 50px;
-    left: 625px;
+    left: 650px;
     top: 400px;
     color: #FFF;
     text-decoration: none;
@@ -49,13 +49,34 @@
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     font-size: 14px;
     position: absolute;
-    width: 50px;
+    width: 60px;
     height: 40px;
     left: 1125px;
     top: 50px;
     color: #FFF;
     text-decoration: none;
-    text-align: left;
+    text-align: center;
+    background-color: rgb(219, 0, 0);
+    color: #fff;
+    padding: 10px 20px;
+    border: 2px solid white;
+    box-shadow: 0;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    display: none;
+    cursor:pointer;
+}
+
+.again-button {
+    font-size: 15px;
+    width: 150px;
+    height: 50px;
+    position: absolute;
+    left: 850px;
+    top: 480px;
+    color: #FFF;
+    text-decoration: none;
+    text-align: center;
     background-color: rgba(219, 0, 0, 0.829);
     color: #fff;
     padding: 10px 20px;
@@ -79,29 +100,8 @@
     top: 11px;
 }
 
-.again-button {
-    font-size: 15px;
-    width: 150px;
-    position: absolute;
-    left: 850px;
-    top: 500px;
-    color: #FFF;
-    text-decoration: none;
-    text-align: center;
-    background-color: rgba(219, 0, 0, 0.829);
-    color: #fff;
-    padding: 10px 20px;
-    border: 0;
-    box-shadow: 0;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    display: none;
-    cursor:pointer;
-}
-
 .main-container {
     display: flex;
     flex-direction: column;
     justify-content: center;
 }
-
