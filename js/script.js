@@ -59,6 +59,7 @@ addEventListener("keydown",(e)=>{
 
   // Fire (Enter)
   if(e.keyCode === 13){
+    if (e.repeat) { return }
       if(health > 50){
         playerState = 'fire'
       } else {

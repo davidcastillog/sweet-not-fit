@@ -1,6 +1,6 @@
 // Variables
 
-const canvas = document.getElementById('canvas');
+const canvas = document.getElementById('canvas1');
 const ctx = canvas.getContext('2d');
 const canvasW = canvas.width;
 const canvasH = canvas.height;
